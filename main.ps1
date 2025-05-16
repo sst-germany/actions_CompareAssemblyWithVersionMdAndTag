@@ -25,7 +25,7 @@ Write-Host "VERSION.md: $markdownVersion"
 
 # Versionen vergleichen
 if ($assemblyVersion -ne $markdownVersion) {
-    Write-Error "Assembly-Version does not match with VERSION.md: $assemblyVersion <=> VERSION.md: $version"
+    Write-Error "Assembly-Version does not match with VERSION.md: $assemblyVersion <=> VERSION.md: $markdownVersion"
     exit 1
 }
 
