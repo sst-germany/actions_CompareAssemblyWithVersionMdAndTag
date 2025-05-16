@@ -17,7 +17,7 @@ $tagName = $env:GITHUB_REF_NAME
 Write-Host "Git-Tag: $tagName"
 
 # Get Version from VERSION.md
-$markdownVersion = Get-Content -Path "VERSION.md" | Select-Object -First 1
+$markdownVersion = (Get-Content -Path "VERSION.md" | Select-Object -First 1).Trim()
 Write-Host "VERSION.md: $markdownVersion"
 
 # Output
@@ -35,6 +35,6 @@ if ($tagName -notlike "releases/v*") {
 }
 
 if ($tagName -notmatch "^releases/v$assemblyVersion$") {
-    Write-Error "Git tag does not match the expected format 'releases/v<AssemblyVersion>': $tagName"
+    Write-Error "Git tag does not match the expected format 'releases/v$markdownVersion': $tagName"
     exit 1
 }
