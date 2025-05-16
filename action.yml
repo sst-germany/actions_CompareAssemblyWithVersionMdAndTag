@@ -1,0 +1,19 @@
+name: 'Check .NET Assembly Version (Powershell)'
+description: 'This action reads the version number from the provided AssemblyPath and compares it with the version number in the VERSION.md file and the Git tag. The Git tag must adhere to the schema "releases/v{assembly-version}".'
+inputs:
+  assemblypath:
+    description: 'The path for the assembly, that will be used to read the version.'
+    required: true
+outputs:
+  assembly_version:
+    description: 'The processed assembly version.'
+    value: ${{ steps.validate_version.outputs.assembly_version }}
+runs:
+  using: 'composite'
+  steps:
+    - name: Validate Version
+      id: validate_version
+      shell: pwsh
+      run: |
+        $script = '${{ github.action_path }}/main.ps1'
+        & $script "${{ inputs.assemblypath }}" 
